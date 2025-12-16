@@ -118,3 +118,33 @@ database/
 - **Authentication:** Passport.js + Google OAuth 2.0
 - **JWT:** jsonwebtoken
 - **Dependency Injection:** Custom Container pattern
+
+## 🚀 Deployment to Vercel
+
+1. **Install Vercel CLI:**
+```bash
+npm i -g vercel
+```
+
+2. **Login to Vercel:**
+```bash
+vercel login
+```
+
+3. **Deploy:**
+```bash
+vercel --prod
+```
+
+### Environment Variables on Vercel
+Set the following environment variables in your Vercel Project Settings:
+- `DATABASE_URL`: Your production PostgreSQL URL
+- `GOOGLE_CLIENT_ID`: Production Google Client ID
+- `GOOGLE_CLIENT_SECRET`: Production Client Secret
+- `GOOGLE_CALLBACK_URL`: `https://<your-vercel-app>.vercel.app/api/v1/auth/google/callback`
+- `JWT_SECRET`: Production JWT Secret
+- `GEMINI_API_KEY`: For AI features
+- `SESSION_SECRET`: Secure session secret
+- `NODE_ENV`: production (Vercel sets this automatically usually)
+
+Ensure you add your Vercel domain to the **Authorized redirect URIs** in Google Cloud Console.
