@@ -1,0 +1,1702 @@
+{
+  "id": "b93690c3-a870-4149-a23d-aa63b04e93cb",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.challenge_options": {
+      "name": "challenge_options",
+      "schema": "",
+      "columns": {
+        "option_id": {
+          "name": "option_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "challenge_id": {
+          "name": "challenge_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "option_text": {
+          "name": "option_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_correct": {
+          "name": "is_correct",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "feedback_text": {
+          "name": "feedback_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "xp_reward": {
+          "name": "xp_reward",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "challenge_options_challenge_id_dim_challenges_challenge_id_fk": {
+          "name": "challenge_options_challenge_id_dim_challenges_challenge_id_fk",
+          "tableFrom": "challenge_options",
+          "tableTo": "dim_challenges",
+          "columnsFrom": [
+            "challenge_id"
+          ],
+          "columnsTo": [
+            "challenge_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dim_careers": {
+      "name": "dim_careers",
+      "schema": "",
+      "columns": {
+        "career_id": {
+          "name": "career_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "average_salary": {
+          "name": "average_salary",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "market_trend": {
+          "name": "market_trend",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dim_challenges": {
+      "name": "dim_challenges",
+      "schema": "",
+      "columns": {
+        "challenge_id": {
+          "name": "challenge_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "module_id": {
+          "name": "module_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "challenge_question": {
+          "name": "challenge_question",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hr_bot_dialog": {
+          "name": "hr_bot_dialog",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "challenge_type": {
+          "name": "challenge_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expected_answer_id": {
+          "name": "expected_answer_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "xp_reward": {
+          "name": "xp_reward",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 100
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "dim_challenges_module_id_dim_modules_module_id_fk": {
+          "name": "dim_challenges_module_id_dim_modules_module_id_fk",
+          "tableFrom": "dim_challenges",
+          "tableTo": "dim_modules",
+          "columnsFrom": [
+            "module_id"
+          ],
+          "columnsTo": [
+            "module_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dim_companies": {
+      "name": "dim_companies",
+      "schema": "",
+      "columns": {
+        "company_id": {
+          "name": "company_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "employer_user_id": {
+          "name": "employer_user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "company_name": {
+          "name": "company_name",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "industry": {
+          "name": "industry",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "website": {
+          "name": "website",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location": {
+          "name": "location",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "dim_companies_employer_user_id_dim_users_user_id_fk": {
+          "name": "dim_companies_employer_user_id_dim_users_user_id_fk",
+          "tableFrom": "dim_companies",
+          "tableTo": "dim_users",
+          "columnsFrom": [
+            "employer_user_id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dim_dates": {
+      "name": "dim_dates",
+      "schema": "",
+      "columns": {
+        "date_id": {
+          "name": "date_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "full_date": {
+          "name": "full_date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "day_name": {
+          "name": "day_name",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "month_name": {
+          "name": "month_name",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "year": {
+          "name": "year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "dim_dates_full_date_unique": {
+          "name": "dim_dates_full_date_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "full_date"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dim_mentors": {
+      "name": "dim_mentors",
+      "schema": "",
+      "columns": {
+        "mentor_id": {
+          "name": "mentor_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expertise": {
+          "name": "expertise",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bio": {
+          "name": "bio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "years_of_experience": {
+          "name": "years_of_experience",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "linkedin_url": {
+          "name": "linkedin_url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_verified": {
+          "name": "is_verified",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "dim_mentors_user_id_dim_users_user_id_fk": {
+          "name": "dim_mentors_user_id_dim_users_user_id_fk",
+          "tableFrom": "dim_mentors",
+          "tableTo": "dim_users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dim_modules": {
+      "name": "dim_modules",
+      "schema": "",
+      "columns": {
+        "module_id": {
+          "name": "module_id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "module_name": {
+          "name": "module_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "review_material": {
+          "name": "review_material",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "hr_partner_name": {
+          "name": "hr_partner_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "hr_partner_company": {
+          "name": "hr_partner_company",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "module_order": {
+          "name": "module_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_challenges": {
+          "name": "total_challenges",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dim_portfolios": {
+      "name": "dim_portfolios",
+      "schema": "",
+      "columns": {
+        "portfolio_id": {
+          "name": "portfolio_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "project_url": {
+          "name": "project_url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "dim_portfolios_user_id_dim_users_user_id_fk": {
+          "name": "dim_portfolios_user_id_dim_users_user_id_fk",
+          "tableFrom": "dim_portfolios",
+          "tableTo": "dim_users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dim_postings": {
+      "name": "dim_postings",
+      "schema": "",
+      "columns": {
+        "posting_id": {
+          "name": "posting_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "company_id": {
+          "name": "company_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "requirements": {
+          "name": "requirements",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location": {
+          "name": "location",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "work_mode": {
+          "name": "work_mode",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stipend": {
+          "name": "stipend",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'active'"
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "dim_postings_company_id_dim_companies_company_id_fk": {
+          "name": "dim_postings_company_id_dim_companies_company_id_fk",
+          "tableFrom": "dim_postings",
+          "tableTo": "dim_companies",
+          "columnsFrom": [
+            "company_id"
+          ],
+          "columnsTo": [
+            "company_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dim_resumes": {
+      "name": "dim_resumes",
+      "schema": "",
+      "columns": {
+        "resume_id": {
+          "name": "resume_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "summary": {
+          "name": "summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "education": {
+          "name": "education",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "experience": {
+          "name": "experience",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "skills": {
+          "name": "skills",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "dim_resumes_user_id_dim_users_user_id_fk": {
+          "name": "dim_resumes_user_id_dim_users_user_id_fk",
+          "tableFrom": "dim_resumes",
+          "tableTo": "dim_users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dim_roles": {
+      "name": "dim_roles",
+      "schema": "",
+      "columns": {
+        "role_id": {
+          "name": "role_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "role_name": {
+          "name": "role_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "dim_roles_role_name_unique": {
+          "name": "dim_roles_role_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "role_name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dim_skills": {
+      "name": "dim_skills",
+      "schema": "",
+      "columns": {
+        "skill_id": {
+          "name": "skill_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "skill_name": {
+          "name": "skill_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "dim_skills_skill_name_unique": {
+          "name": "dim_skills_skill_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "skill_name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dim_users": {
+      "name": "dim_users",
+      "schema": "",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "role_id": {
+          "name": "role_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "google_id": {
+          "name": "google_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "profile_picture": {
+          "name": "profile_picture",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_level": {
+          "name": "current_level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 1
+        },
+        "total_xp": {
+          "name": "total_xp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "progress_percentage": {
+          "name": "progress_percentage",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0.00'"
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "last_login_at": {
+          "name": "last_login_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "dim_users_role_id_dim_roles_role_id_fk": {
+          "name": "dim_users_role_id_dim_roles_role_id_fk",
+          "tableFrom": "dim_users",
+          "tableTo": "dim_roles",
+          "columnsFrom": [
+            "role_id"
+          ],
+          "columnsTo": [
+            "role_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "dim_users_email_unique": {
+          "name": "dim_users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        },
+        "dim_users_google_id_unique": {
+          "name": "dim_users_google_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "google_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.job_applications": {
+      "name": "job_applications",
+      "schema": "",
+      "columns": {
+        "application_id": {
+          "name": "application_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "posting_id": {
+          "name": "posting_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "resume_url": {
+          "name": "resume_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cover_letter": {
+          "name": "cover_letter",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'submitted'"
+        },
+        "applied_at": {
+          "name": "applied_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "job_applications_posting_id_dim_postings_posting_id_fk": {
+          "name": "job_applications_posting_id_dim_postings_posting_id_fk",
+          "tableFrom": "job_applications",
+          "tableTo": "dim_postings",
+          "columnsFrom": [
+            "posting_id"
+          ],
+          "columnsTo": [
+            "posting_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "job_applications_user_id_dim_users_user_id_fk": {
+          "name": "job_applications_user_id_dim_users_user_id_fk",
+          "tableFrom": "job_applications",
+          "tableTo": "dim_users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.map_career_skills": {
+      "name": "map_career_skills",
+      "schema": "",
+      "columns": {
+        "career_id": {
+          "name": "career_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "skill_id": {
+          "name": "skill_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "importance_level": {
+          "name": "importance_level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "map_career_skills_career_id_dim_careers_career_id_fk": {
+          "name": "map_career_skills_career_id_dim_careers_career_id_fk",
+          "tableFrom": "map_career_skills",
+          "tableTo": "dim_careers",
+          "columnsFrom": [
+            "career_id"
+          ],
+          "columnsTo": [
+            "career_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "map_career_skills_skill_id_dim_skills_skill_id_fk": {
+          "name": "map_career_skills_skill_id_dim_skills_skill_id_fk",
+          "tableFrom": "map_career_skills",
+          "tableTo": "dim_skills",
+          "columnsFrom": [
+            "skill_id"
+          ],
+          "columnsTo": [
+            "skill_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "map_career_skills_career_id_skill_id_pk": {
+          "name": "map_career_skills_career_id_skill_id_pk",
+          "columns": [
+            "career_id",
+            "skill_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mentorship_requests": {
+      "name": "mentorship_requests",
+      "schema": "",
+      "columns": {
+        "request_id": {
+          "name": "request_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "mentor_id": {
+          "name": "mentor_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mentee_id": {
+          "name": "mentee_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "message": {
+          "name": "message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'pending'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "mentorship_requests_mentor_id_dim_mentors_mentor_id_fk": {
+          "name": "mentorship_requests_mentor_id_dim_mentors_mentor_id_fk",
+          "tableFrom": "mentorship_requests",
+          "tableTo": "dim_mentors",
+          "columnsFrom": [
+            "mentor_id"
+          ],
+          "columnsTo": [
+            "mentor_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mentorship_requests_mentee_id_dim_users_user_id_fk": {
+          "name": "mentorship_requests_mentee_id_dim_users_user_id_fk",
+          "tableFrom": "mentorship_requests",
+          "tableTo": "dim_users",
+          "columnsFrom": [
+            "mentee_id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mock_interview_sessions": {
+      "name": "mock_interview_sessions",
+      "schema": "",
+      "columns": {
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "interview_type": {
+          "name": "interview_type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "score": {
+          "name": "score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "feedback": {
+          "name": "feedback",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completed_at": {
+          "name": "completed_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "mock_interview_sessions_user_id_dim_users_user_id_fk": {
+          "name": "mock_interview_sessions_user_id_dim_users_user_id_fk",
+          "tableFrom": "mock_interview_sessions",
+          "tableTo": "dim_users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.user_bookmarks": {
+      "name": "user_bookmarks",
+      "schema": "",
+      "columns": {
+        "bookmark_id": {
+          "name": "bookmark_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entity_type": {
+          "name": "entity_type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entity_id": {
+          "name": "entity_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_bookmarks_user_id_dim_users_user_id_fk": {
+          "name": "user_bookmarks_user_id_dim_users_user_id_fk",
+          "tableFrom": "user_bookmarks",
+          "tableTo": "dim_users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.user_career_interests": {
+      "name": "user_career_interests",
+      "schema": "",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "career_id": {
+          "name": "career_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "interest_level": {
+          "name": "interest_level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_career_interests_user_id_dim_users_user_id_fk": {
+          "name": "user_career_interests_user_id_dim_users_user_id_fk",
+          "tableFrom": "user_career_interests",
+          "tableTo": "dim_users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_career_interests_career_id_dim_careers_career_id_fk": {
+          "name": "user_career_interests_career_id_dim_careers_career_id_fk",
+          "tableFrom": "user_career_interests",
+          "tableTo": "dim_careers",
+          "columnsFrom": [
+            "career_id"
+          ],
+          "columnsTo": [
+            "career_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "user_career_interests_user_id_career_id_pk": {
+          "name": "user_career_interests_user_id_career_id_pk",
+          "columns": [
+            "user_id",
+            "career_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.user_progress": {
+      "name": "user_progress",
+      "schema": "",
+      "columns": {
+        "fact_id": {
+          "name": "fact_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "module_id": {
+          "name": "module_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "challenge_id": {
+          "name": "challenge_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_id": {
+          "name": "date_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "xp_gained": {
+          "name": "xp_gained",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stars_received": {
+          "name": "stars_received",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "time_spent_seconds": {
+          "name": "time_spent_seconds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user_selected_option_id": {
+          "name": "user_selected_option_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_correct_selection": {
+          "name": "is_correct_selection",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "finished_at": {
+          "name": "finished_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_progress_user": {
+          "name": "idx_progress_user",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_progress_module": {
+          "name": "idx_progress_module",
+          "columns": [
+            {
+              "expression": "module_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "user_progress_user_id_dim_users_user_id_fk": {
+          "name": "user_progress_user_id_dim_users_user_id_fk",
+          "tableFrom": "user_progress",
+          "tableTo": "dim_users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_progress_module_id_dim_modules_module_id_fk": {
+          "name": "user_progress_module_id_dim_modules_module_id_fk",
+          "tableFrom": "user_progress",
+          "tableTo": "dim_modules",
+          "columnsFrom": [
+            "module_id"
+          ],
+          "columnsTo": [
+            "module_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_progress_challenge_id_dim_challenges_challenge_id_fk": {
+          "name": "user_progress_challenge_id_dim_challenges_challenge_id_fk",
+          "tableFrom": "user_progress",
+          "tableTo": "dim_challenges",
+          "columnsFrom": [
+            "challenge_id"
+          ],
+          "columnsTo": [
+            "challenge_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_progress_date_id_dim_dates_date_id_fk": {
+          "name": "user_progress_date_id_dim_dates_date_id_fk",
+          "tableFrom": "user_progress",
+          "tableTo": "dim_dates",
+          "columnsFrom": [
+            "date_id"
+          ],
+          "columnsTo": [
+            "date_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_progress_user_selected_option_id_challenge_options_option_id_fk": {
+          "name": "user_progress_user_selected_option_id_challenge_options_option_id_fk",
+          "tableFrom": "user_progress",
+          "tableTo": "challenge_options",
+          "columnsFrom": [
+            "user_selected_option_id"
+          ],
+          "columnsTo": [
+            "option_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
