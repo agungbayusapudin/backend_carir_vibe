@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.ts",
-    "dev": "nodemon",
+    "start": "node dist/app.js",
+    "dev": "nodemon app.ts",
     "migrate": "tsx database/migrate.ts",
-    "build": "tsc",
-    "prod": "node dist/app.js"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
